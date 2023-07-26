@@ -112,7 +112,7 @@ LODESTONES.LODESTONE = {
 function GoToLodestone(lode)
     print('Teleporting to ', UTILS.GetLabelFromArgument(lode, LODESTONES.LODESTONE))
     LODESTONES.openLodestonesInterface()
-    API.DoAction_Interface(0xffffffff, 0xffffffff, 1, 1092, lode.id, -1, API.GeneralInterface_route)
+    API.DoAction_Interface(0xffffffff, 0xffffffff, 1, 1092, lode.id, -1, API.OFF_ACT_GeneralInterface_route)
     API.RandomSleep2(3000, 2050, 5000)
     print('sleep done')
     UTILS.waitForAnimation(0, 20)
