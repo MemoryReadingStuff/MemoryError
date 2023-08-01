@@ -187,6 +187,7 @@ while API.Read_LoopyLoop() do
             stairsUp()
         end
     elseif API.InvItemcount_1(ID.FLAX) > 0 then
+        fail = 0
         if API.GetFloorLv_2() == 2 then
             stairsDown()
         else

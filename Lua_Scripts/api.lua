@@ -82,7 +82,25 @@ API.I2offitemstack = I2offitemstack
 
 
 
+---@return number
+function API.Get_HWND_GL()
+	return Get_HWND_GL()
+end
 
+---@return number
+function API.Get_HWND()
+	return Get_HWND()
+end
+
+---@return number
+function API.Get_PID()
+	return Get_PID()
+end
+
+---@return number
+function API.Get_HANDLE()
+	return Get_HANDLE()
+end
 
 ---@return number
 function API.Read_fake_mouse_do()
