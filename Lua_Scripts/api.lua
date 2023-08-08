@@ -331,9 +331,16 @@ function API.isProcessing()
 end
 
 --- get player facing direction in angles
----@return boolean
+---@return number
 function API.calculatePlayerOrientation()
 	return calculatePlayerOrientation()
+end
+
+--- get facing direction in angles
+---@param number mem_addr --AllObject MemE
+---@return number
+function API.calculateOrientation(mem_addr)
+	return calculateOrientation(mem_addr)
 end
 
 --- Create FFPOINT vector

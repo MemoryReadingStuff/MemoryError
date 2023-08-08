@@ -18,6 +18,17 @@ function UTILS.UserDataToVector(userdata)
   return vector
 end
 
+-- Lua function to sleep for milliseconds with a random delay
+function UTILS.randomSleep(milliseconds)
+  local randomDelay = math.random(1, 200)
+  local totalDelay = milliseconds + randomDelay
+  local start = os.clock()
+  local target = start + (totalDelay / 1000)
+  while os.clock() < target do
+    API.RandomSleep2(100, 0, 0)
+  end
+end
+
 -- Function to convert userdata to string
 function UTILS.UserDataToString(userdata)
   local vector = {}
@@ -50,8 +61,13 @@ function UTILS.waitForAnimation(animationId, maxWaitInSeconds)
   local exitLoop = false
   local start = os.time()
   while not exitLoop and os.time() - start < waitTime do
+    if not (API.Read_LoopyLoop() or API.PlayerLoggedIn()) then
+      exitLoop = true
+      return false
+    end
     if (API.ReadPlayerAnim() == animation) then
       exitLoop = true
+      return true
     end
   end
 end
@@ -63,22 +79,17 @@ function UTILS.waitForPlayerAtCoords(coords, threshold, maxWaitInSeconds)
   local exitLoop = false
   local start = os.time()
   while not exitLoop and os.time() - start < waitTime do
+    if not (API.Read_LoopyLoop() or API.PlayerLoggedIn()) then
+      exitLoop = true
+      return false
+    end
     local player = API.PlayerCoord()
     -- There's probably a more math accurate way of doing this
-    if ((player.x >= coords.x - threshold or player.x <= coords.x + threshold) and (player.y >= coords.y - threshold or player.y <= coords.y + threshold)) then
+    if ((player.x >= coords.x - variance or player.x <= coords.x + variance) and (player.y >= coords.y - variance or player.y <= coords.y + variance)) then
       exitLoop = true
+      return true
     end
   end
-end
-
--- Function to get the label of the table element
-function UTILS.GetLabelFromArgument(arg, table)
-  for label, record in pairs(table) do
-    if record == arg then
-      return label
-    end
-  end
-  return nil
 end
 
 --[[
@@ -97,6 +108,16 @@ end
   would print 'Teleporting to BanditCamp'
 --]]
 
+-- Function to get the label of the table element
+function UTILS.GetLabelFromArgument(arg, table)
+  for label, record in pairs(table) do
+    if record == arg then
+      return label
+    end
+  end
+  return nil
+end
+
 --[[
 Handles the below random events
 
@@ -108,29 +129,19 @@ Handles the below random events
 //28411 catalyst
 --]]
 function UTILS.DO_RandomEvents()
-  local F_obj = API.GetAllObjArrayInteract({19884, 26022, 27228, 27297, 28411}, 20, 1)
+  local F_obj = API.GetAllObjArrayInteract({ 19884, 26022, 27228, 27297, 28411 }, 20, 1)
   --if not (F_obj) == nil then
-    if (F_Obj) ~= nil then
-      print("Random event object detected: trying to click")
-      if API.Math_AO_ValueEqualsArr({18204, 18205, 19884, 26022, 27228, 27297, 28411}, F_obj) then -- if separation is needed
-          if API.DoAction_NPC__Direct(0x29, API.InteractNPC_route, F_obj[1]) then
-              API.RandomSleep2(1500, 4050, 12000)
-              return true
-          end
+  if (F_Obj) ~= nil then
+    print("Random event object detected: trying to click")
+    UTILS.randomSleep(1000)
+    if API.Math_AO_ValueEqualsArr({ 18204, 18205, 19884, 26022, 27228, 27297, 28411 }, F_obj) then -- if separation is needed
+      if API.DoAction_NPC__Direct(0x29, API.InteractNPC_route, F_obj[1]) then
+        UTILS.randomSleep(2000)
+        return true
       end
+    end
   end
   return false
 end
 
--- Lua function to sleep for milliseconds with a random delay
-function UTILS.randomSleep(milliseconds)
-  local randomDelay = math.random(1, 200)
-  local totalDelay = milliseconds + randomDelay
-  local start = os.clock()
-  local target = start + (totalDelay / 1000)
-  while os.clock() < target do
-      -- Do nothing, just wait
-  end
-end
 return UTILS
-
