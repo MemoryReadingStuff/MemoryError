@@ -1,3 +1,11 @@
+--[[
+#Script Name:   <lodestones.lua>
+# Description:  <Functions to teleport to Lodestones>
+# Autor:        <Dead (dea.d - Discord)>
+# Version:      <1.1>
+# Datum:        <2023.08.09>
+--]]
+
 local API = require("api")
 local UTILS = require("utils")
 local LODESTONES = {}
@@ -95,6 +103,10 @@ LODESTONES.LODESTONE = {
         id = 32,
         loc = WPOINT.new(2254, 3149, 0)
     },
+    UM = {
+        id = 36,
+        loc = WPOINT.new(1084, 1768, 1)
+    },
     VARROCK = {
         id = 22,
         loc = WPOINT.new(3214, 3376, 0)
@@ -123,7 +135,7 @@ function GoToLodestone(lode)
 end
 
 function LODESTONES.openLodestonesInterface()
-    API.DoAction_Interface(0xffffffff, 0xffffffff, 1, 1465, 18, -1, API.GeneralInterface_route)
+    API.DoAction_Interface(0xffffffff, 0xffffffff, 1, 1465, 18, -1, API.OFF_ACT_GeneralInterface_route)
     API.RandomSleep2(500, 3050, 12000)
 end
 
@@ -217,6 +229,10 @@ end
 
 function LODESTONES.Tirannwn()
     GoToLodestone(LODESTONES.LODESTONE.TIRANNWN)
+end
+
+function LODESTONES.Um()
+    GoToLodestone(LODESTONES.LODESTONE.UM)
 end
 
 function LODESTONES.Varrock()

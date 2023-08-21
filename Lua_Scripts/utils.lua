@@ -1,3 +1,11 @@
+--[[
+#Script Name:   <utils.lua>
+# Description:  <Collection of utility functions>
+# Autor:        <Dead (dea.d - Discord)>
+# Version:      <1.1>
+# Datum:        <2023.08.09>
+--]]
+
 local API = require("api")
 local UTILS = {}
 
@@ -116,6 +124,17 @@ function UTILS.GetLabelFromArgument(arg, table)
     end
   end
   return nil
+end
+
+-- Function to concatenate tables
+function UTILS.concatenateTables(...)
+  local result = {}
+  for _, tbl in ipairs({...}) do
+      for _, value in ipairs(tbl) do
+          table.insert(result, value)
+      end
+  end
+  return result
 end
 
 --[[

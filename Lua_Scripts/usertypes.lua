@@ -138,6 +138,7 @@
 ---@field mem_global number
 ---@field string_value string
 ---@field stringsArr userdata --vector<string>
+---@field string_input string
 
 ---@class ImColor
 ---@field red number

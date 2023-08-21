@@ -2162,6 +2162,7 @@ MINING
 DIVINATION
 INVENTION not known
 ARCHAEOLOGY
+NECROMANCY
 --]]
 ---@param name string
 ---@return number
